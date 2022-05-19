@@ -1,4 +1,4 @@
-const getSchema = () => {
+export const getFields = () => {
     const cc = DataStudioApp.createCommunityConnector();
 
     const fields = cc.getFields();
@@ -34,7 +34,9 @@ const getSchema = () => {
     fields.setDefaultDimension('userName');
     fields.setDefaultMetric('postLength');
 
-    return {
-        schema: fields.build(),
-    };
+    return fields;
 };
+
+export const getSchema = () => ({
+    schema: getFields().build(),
+});

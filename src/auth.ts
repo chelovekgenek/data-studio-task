@@ -1,25 +1,30 @@
-const clientIdProperty = 'clientId';
+import { UserProperty } from './types';
 
-const resetAuth = () =>
-    PropertiesService.getUserProperties().deleteProperty(clientIdProperty);
+const cc = DataStudioApp.createCommunityConnector();
 
-const isAuthValid = () =>
-    !!PropertiesService.getUserProperties().getProperty(clientIdProperty);
+export const resetAuth = () =>
+    PropertiesService.getUserProperties().deleteProperty(
+        UserProperty.CLIENT_ID
+    );
 
-const getAuthType = () => {
-    const cc = DataStudioApp.createCommunityConnector();
+export const isAuthValid = () =>
+    !!PropertiesService.getUserProperties().getProperty(UserProperty.CLIENT_ID);
 
-    return cc.newAuthTypeResponse().setAuthType(cc.AuthType.USER_TOKEN).build();
+export const getAuthType = () => {
+    return cc.newAuthTypeResponse().setAuthType(cc.AuthType.KEY).build();
 };
 
 interface SetCredentialsInput {
     key: string;
 }
 
-const setCredentials = ({ key }: SetCredentialsInput) => {
-    PropertiesService.getUserProperties().setProperty(clientIdProperty, key);
+export const setCredentials = (
+    credentials: SetCredentialsInput = { key: 'ju16a6m81mhid5ue1z3v2g0uh' }
+) => {
+    PropertiesService.getUserProperties().setProperty(
+        UserProperty.CLIENT_ID,
+        credentials.key
+    );
 
-    return {
-        errorCode: !!key ? 'NONE' : 'INVALID_CREDENTIALS',
-    };
+    return cc.newSetCredentialsResponse().setIsValid(true).build();
 };
