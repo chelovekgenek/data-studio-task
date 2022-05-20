@@ -12,7 +12,6 @@
     -   Run Tests and Build script for Merge Requests
     -   Deploy by tag or when in master branch
 *   Inject project variables on deploy stage(SUPERMETRICS_API_URL)
-*   Use bundler(webpack, parcel) to build js before push to remote
 *   Better type coverage
 *   Linter
 *   Git hooks

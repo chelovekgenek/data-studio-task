@@ -4,7 +4,7 @@ import * as GetSchemaFns from './getSchema';
 import * as AuthFns from './auth';
 
 declare const global: {
-    [x: string]: () => void;
+    [x: string]: (...args: any[]) => void;
 };
 
 global.getData = GetDataFns.getData;
